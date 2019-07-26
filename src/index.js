@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { App } from './components/App'
+import { TrendsService } from './services/TrendsService'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const httpClient = {
+  get(url) {
+    return fetch(url).then(response => response.json())
+  }
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+ReactDOM.render(<App trendsService={new TrendsService(httpClient)}/>, document.getElementById('root'));
+
 serviceWorker.unregister();
